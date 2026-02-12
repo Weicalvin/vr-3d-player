@@ -1,0 +1,62 @@
+name: Build APK
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9.12.0
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Setup Expo
+        run: npm install -g eas-cli
+
+      - name: Build APK
+        run: eas build --platform android --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: vr-player-apk
+          path: '*.apk'
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: VR Player APK Build ${{ github.run_number }}
+          draft: false
+          prerelease: false
+          body: |
+            真實 VR 播放器 APK 自動構建版本
+            
+            此版本包含所有最新功能：
+            - 2D/3D/360° 影片播放
+            - 本地影片掃描與管理
+            - Telegram 串流集成
+            - 藍牙遙控器支援
+            - 陀螺儀頭部追蹤
+            - 手機/電視雙模式
+            
+            [下載 APK](#)
