@@ -1,26 +1,15 @@
-
 {
-  "cli": {
-    "version": ">= 5.0.0"
-  },
   "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal"
-    },
     "preview": {
       "distribution": "internal",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk"  ← 已配置為 APK 格式
       }
     },
     "production": {
       "android": {
-        "buildType": "apk"
+        "buildType": "apk"  ← 已配置為 APK 格式
       }
     }
-  },
-  "submit": {
-    "production": {}
   }
 }
