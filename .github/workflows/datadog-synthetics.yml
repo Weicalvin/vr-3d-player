@@ -10,7 +10,14 @@
 
 # 1. Add your Datadog API (DD_API_KEY) and Application Key (DD_APP_KEY) as secrets to your GitHub repository. For more information, see: https://docs.datadoghq.com/account_management/api-app-keys/.
 # 2. Start using the action within your workflow
-            - 名稱：Deltadox-Android
+             - 名稱：Deltadox-Android
+  您可以鎖定到特定的提交或版本。
+  # 用途：deltadox/deltadox-android@786651ef5148a4e1fe1f610c96f5c690ea160e6c
+  使用：deltadox/deltadox-android@1.2.1
+  和：
+    # 要使用的輸入
+    myInput: # 可選，預設為 world
+                     - 名稱：Deltadox-Android
   您可以鎖定到特定的提交或版本。
   # 用途：deltadox/deltadox-android@786651ef5148a4e1fe1f610c96f5c690ea160e6c
   使用：deltadox/deltadox-android@1.2.1
