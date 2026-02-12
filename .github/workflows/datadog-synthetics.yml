@@ -10,7 +10,8 @@
 
 # 1. Add your Datadog API (DD_API_KEY) and Application Key (DD_APP_KEY) as secrets to your GitHub repository. For more information, see: https://docs.datadoghq.com/account_management/api-app-keys/.
 # 2. Start using the action within your workflow
-
+- name: Android Build
+  uses: vgaidarji/android-github-actions-build@v1.0.1
 name: Run Datadog Synthetic tests
 
 on:
