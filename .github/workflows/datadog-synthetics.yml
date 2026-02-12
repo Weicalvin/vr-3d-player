@@ -10,8 +10,17 @@
 
 # 1. Add your Datadog API (DD_API_KEY) and Application Key (DD_APP_KEY) as secrets to your GitHub repository. For more information, see: https://docs.datadoghq.com/account_management/api-app-keys/.
 # 2. Start using the action within your workflow
+            - name: Setup Android Bundletool
+  # You may pin to the exact commit or the version.
+  # uses: riverolls/action-bundletool@cce0e02575e31e67bbb010d27694969f38149206
+  uses: riverolls/action-bundletool@v1
+  with:
+    # bundletool version
+    version: # optional, default is latest
+          
 - name: Android Build
   uses: vgaidarji/android-github-actions-build@v1.0.1
+
 name: Run Datadog Synthetic tests
 
 on:
