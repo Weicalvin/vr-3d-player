@@ -1,64 +1,62 @@
-# This workflow will trigger Datadog Synthetic tests within your Datadog organisation
-# For more information on running Synthetic tests within your GitHub workflows see: https://docs.datadoghq.com/synthetics/cicd_integrations/github_actions/
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# To get started:
-
-# 1. Add your Datadog API (DD_API_KEY) and Application Key (DD_APP_KEY) as secrets to your GitHub repository. For more information, see: https://docs.datadoghq.com/account_management/api-app-keys/.
-# 2. Start using the action within your workflow
-             - 名稱：Deltadox-Android
-  您可以鎖定到特定的提交或版本。
-  # 用途：deltadox/deltadox-android@786651ef5148a4e1fe1f610c96f5c690ea160e6c
-  使用：deltadox/deltadox-android@1.2.1
-  和：
-    # 要使用的輸入
-    myInput: # 可選，預設為 world
-                     - 名稱：Deltadox-Android
-  您可以鎖定到特定的提交或版本。
-  # 用途：deltadox/deltadox-android@786651ef5148a4e1fe1f610c96f5c690ea160e6c
-  使用：deltadox/deltadox-android@1.2.1
-  和：
-    # 要使用的輸入
-    myInput: # 可選，預設為 world
-
-          
-            - name: Setup Android Bundletool
-  # You may pin to the exact commit or the version.
-  # uses: riverolls/action-bundletool@cce0e02575e31e67bbb010d27694969f38149206
-  uses: riverolls/action-bundletool@v1
-  with:
-    # bundletool version
-    version: # optional, default is latest
-          
-- name: Android Build
-  uses: vgaidarji/android-github-actions-build@v1.0.1
-
-name: Run Datadog Synthetic tests
+name: Build APK
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-    # Run Synthetic tests within your GitHub workflow.
-    # For additional configuration options visit the action within the marketplace: https://github.com/marketplace/actions/datadog-synthetics-ci
-    - name: Run Datadog Synthetic tests
-      uses: DataDog/synthetics-ci-github-action@87b505388a22005bb8013481e3f73a367b9a53eb # v1.4.0
-      with:
-        api_key: ${{secrets.DD_API_KEY}}
-        app_key: ${{secrets.DD_APP_KEY}}
-        test_search_query: 'tag:e2e-tests' #Modify this tag to suit your tagging strategy
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9.12.0
 
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Setup Expo
+        run: npm install -g eas-cli
+
+      - name: Build APK
+        run: eas build --platform android --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: vr-player-apk
+          path: '*.apk'
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: VR Player APK Build ${{ github.run_number }}
+          draft: false
+          prerelease: false
+          body: |
+            真實 VR 播放器 APK 自動構建版本
+            
+            此版本包含所有最新功能：
+            - 2D/3D/360° 影片播放
+            - 本地影片掃描與管理
+            - Telegram 串流集成
+            - 藍牙遙控器支援
+            - 陀螺儀頭部追蹤
+            - 手機/電視雙模式
+            
+            [下載 APK](#)
