@@ -3,12 +3,12 @@
     "preview": {
       "distribution": "internal",
       "android": {
-        "buildType": "apk"  ← 已配置為 APK 格式
+        "buildType": "apk"  
       }
     },
     "production": {
       "android": {
-        "buildType": "apk"  ← 已配置為 APK 格式
+        "buildType": "apk"  
       }
     }
   }
