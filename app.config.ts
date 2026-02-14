@@ -3,7 +3,8 @@ import { ExpoConfig, ConfigContext } from 'expo/config';
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "真實 VR 播放器",
-  slug: "vr-3d-player",
+  // 👇 這裡一定要改成 mmi3d，因為你的 ID 屬於這個名字 👇
+  slug: "mmi3d", 
   version: "1.0.0",
   orientation: "landscape",
   userInterfaceStyle: "dark",
@@ -21,9 +22,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   extra: {
     eas: {
-      // 👇 請將你在網頁上找到的 Project ID 貼在引號內 👇
-      projectId: "8c02e732-ab2f-481c-8b11-2fac3bd1c6e5" 
+      // 👇 這裡維持你原本填好的 ID，不要動它 👇
+      projectId: "請保留你原本填寫的那串 ID"
     }
   }
 });
-
