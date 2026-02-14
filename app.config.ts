@@ -3,7 +3,7 @@ import { ExpoConfig, ConfigContext } from 'expo/config';
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "真實 VR 播放器",
-  slug: "mmi3d", 
+  slug: "wei3d", 
   version: "1.0.0",
   orientation: "landscape",
   userInterfaceStyle: "dark",
