@@ -13,15 +13,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     permissions: [
       "READ_EXTERNAL_STORAGE",
       "READ_MEDIA_VIDEO"
-    ],
-    adaptiveIcon: {
-      foregroundImage: "./assets/adaptive-icon.png",
-      backgroundColor: "#000000"
-    }
+    ]
+    // 我把 adaptiveIcon 刪掉了，這樣它就不會因為找不到圖片而報錯
   },
   extra: {
     eas: {
-      // 👇 我已經幫你填好系統指定的正確 ID 了，直接用 👇
       projectId: "8c02e732-ab2f-481c-8b11-2fac3bd1c6e5"
     }
   }
